@@ -9,11 +9,15 @@ struct IntArray{
 int main(){
     int next=0;
     std::cin>>next;
-    if (!std::cin){
-        return 1;
-    }
+   
     IntArray a;
     a.add(next);
+    while (std::cin>>next){
+        a.add(next);
+    }
+    if (std::cin.fail()){
+        return 1;
+    }
     
     
     
