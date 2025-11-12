@@ -3,10 +3,13 @@
 struct IntArray{
     void add(int i);
     int get(size_t id) const noexcept;
-    size_t size() const noexcept;
+    size_t get_size() const noexcept;
     int last() const noexcept;
     IntArray(int i);
     ~IntArray();
+    IntArray(const IntArray & rhs);
+    IntArray & operator =(const IntArray & rhs);
+    
     
     int *a;
     size_t k;
@@ -39,6 +42,25 @@ struct IntArray{
         ++k;
     }
     
+    IntArray:: IntArray ( const IntArray & rhs):
+        data(new int[rhs.get_size()]),
+        size(rhs.get_size())
+    {
+        for (size_t i=0;i<get_size(); ++i){
+            data[i]=rhs.get(i);
+        }
+    }
+    
+    IntArray & IntArray::operator = ( const  IntArray & rhs){
+        int * tmp = new int [rhs.get_size()];
+        for (size_t i=0;i<get_size(); ++i){
+            tmp[i]=rhs.get(i);
+        }
+        delete [] data;
+        data=tmp;
+        size=rhs.get_size();
+        return *this;
+    }
 };
 
 int main(){
