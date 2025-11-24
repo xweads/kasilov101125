@@ -42,3 +42,63 @@ int IntArray::getLast() const noexcept
   }
   return 0;
 }
+
+IntArray::IntArray(const IntArray &rhs):
+  data(new int[rhs.getSize()]),
+  size(rhs.getSize())
+{
+  for (size_t i = 0; i < rhs.getSize(); ++i)
+  {
+    data[i] = rhs.getValue(i);
+  }
+}
+
+IntArray &IntArray::operator = (const IntArray &rhs)
+{
+  if (this != &rhs)
+  {
+    delete[] data;
+    size = rhs.getSize();
+    int *temp = new int[rhs.getSize()];
+    for(size_t i = 0; i < rhs.getSize(); ++i)
+    {
+      temp[i] = rhs.getValue(i);
+    }
+    data = temp;
+  }
+  return *this;
+}
+
+IntArray::IntArray(IntArray &&rhs):
+  data(rhs.data),
+  size(rhs.size)
+{
+  rhs.data = nullptr;
+  rhs.size = 0;
+}
+
+IntArray &IntArray::operator = (IntArray &&rhs)
+{
+  if (this != &rhs)
+  {
+    delete[] data;
+    data = rhs.data;
+    size = rhs.size;
+    rhs.data = nullptr;
+    rhs.size = 0;
+  }
+  return *this;
+}
+
+void IntArray::pushBack(int i)
+{
+  int *temp = new int[getSize() + 1];
+  for (size_t j = 0; j < getSize(); ++j)
+  {
+    temp[j] = getValue(j);
+  }
+  temp[getSize()] = i;
+  delete[] data;
+  data = temp;
+  ++size;
+}
