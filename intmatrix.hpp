@@ -12,6 +12,9 @@ struct IntMatrix
 
   std::istream &readFromFile(std::istream &in);
   void printMatrix() const noexcept;
+    
+  int getElement(size_t i, size_t j) const;
+  void setElement(size_t i, size_t j, int v);
 };
 
 #endif

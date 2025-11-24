@@ -42,3 +42,18 @@ void IntMatrix::printMatrix() const noexcept
     std::cout << std::endl;
   }
 }
+
+int IntMatrix::getElement(size_t i, size_t j) const
+{
+  if (i < rows && j < cols) {
+    return matrix.getValue(i * cols + j);
+  }
+  return 0;
+}
+
+void IntMatrix::setElement(size_t i, size_t j, int v)
+{
+  if (i < rows && j < cols) {
+    matrix.setValue(i * cols + j, v);
+  }
+}
