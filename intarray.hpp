@@ -10,6 +10,11 @@ struct IntArray
 
   IntArray(size_t k, int i);
   ~IntArray();
+  int getValue(size_t id) const noexcept;
+  void setValue(size_t id, int v);
+  size_t getSize() const noexcept;
+  int getLast() const noexcept;
 };
+
 
 #endif
