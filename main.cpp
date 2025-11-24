@@ -18,3 +18,42 @@ bool processCommand(IntMatrix &matrix, int command, int param1, int param2)
   
   return false;
 }
+
+int main(int argc, const char **argv)
+{
+  if (argc != 2)
+  {
+    std::cerr << "Error: invalid number of arguments" << "\n";
+    return 1;
+  }
+
+  IntMatrix arr;
+  std::ifstream in(argv[1]);
+
+  if(!in.is_open())
+  {
+    std::cerr << "Error: cannot open file" << "\n";
+    return 1;
+  }
+
+  try
+  {
+    arr.readFromFile(in);
+  }
+  catch(const std::logic_error &e)
+  {
+    std::cerr << e.what() << "\n";
+    return 1;
+  }
+  catch(const std::bad_alloc &)
+  {
+    std::cerr << "Error: memory allocation failed" << "\n";
+    return 2;
+  }
+
+  std::cout << "Initial matrix:" << std::endl;
+  arr.printMatrix();
+  std::cout << std::endl;
+  
+  return 0;
+}
