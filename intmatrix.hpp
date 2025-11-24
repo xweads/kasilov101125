@@ -15,6 +15,8 @@ struct IntMatrix
     
   int getElement(size_t i, size_t j) const;
   void setElement(size_t i, size_t j, int v);
+    
+  void insertRowAfter(int after_row, int val);
 };
 
 #endif

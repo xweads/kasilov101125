@@ -57,3 +57,40 @@ void IntMatrix::setElement(size_t i, size_t j, int v)
     matrix.setValue(i * cols + j, v);
   }
 }
+
+void IntMatrix::insertRowAfter(int after_row, int val)
+{
+  if (after_row < 0 || static_cast<size_t>(after_row) > rows)
+  {
+    throw std::logic_error("Error: row index out of range");
+  }
+
+  size_t insert_pos = (after_row == 0) ? 0 : static_cast<size_t>(after_row);
+  int *temp = new int[(rows + 1) * cols];
+
+  for (size_t i = 0; i < insert_pos; ++i)
+  {
+    for (size_t j = 0; j < cols; ++j)
+    {
+      temp[i * cols + j] = getElement(i, j);
+    }
+  }
+
+  for (size_t j = 0; j < cols; ++j)
+  {
+    temp[insert_pos * cols + j] = val;
+  }
+
+  for (size_t i = insert_pos; i < rows; ++i)
+  {
+    for (size_t j = 0; j < cols; ++j)
+    {
+      temp[(i + 1) * cols + j] = getElement(i, j);
+    }
+  }
+
+  delete[] matrix.data;
+  matrix.data = temp;
+  matrix.size = (rows + 1) * cols;
+  ++rows;
+}
