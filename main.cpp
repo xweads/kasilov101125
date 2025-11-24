@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 struct IntArray{
     void add(int i);
