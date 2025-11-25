@@ -51,9 +51,47 @@ int main(int argc, const char **argv)
     return 2;
   }
 
-  std::cout << "Initial matrix:" << std::endl;
+  int command = 0;
+  int param1 = 0;
+  int param2 = 0;
+    
   arr.printMatrix();
   std::cout << std::endl;
   
+  while (std::cin >> command >> param1 >> param2)
+  {
+    bool commandProcessed = false;
+    try
+   {
+     commandProcessed = processCommand(arr, command, param1, param2);
+   }
+     catch (const std::logic_error &e)
+   {
+     std::cerr << e.what() << "\n";
+     return 3;
+   }
+     catch (const std::bad_alloc&)
+   {
+     std::cerr << "Error: memory allocation failed" << "\n";
+     return 2;
+   }
+
+   if (!commandProcessed)
+   {
+     std::cerr << "Error: unknown command" << "\n";
+     return 3;
+   }
+
+   std::cout << "After command " << command << " " << param1 << " " << param2 << ":" << std::endl;
+   arr.printMatrix();
+   std::cout << std::endl;
+  }
+
+  if (std::cin.fail() && !std::cin.eof())
+  {
+    std::cerr << "Error: invalid input parameters" << "\n";
+    return 3;
+  }
+
   return 0;
-}
+};
